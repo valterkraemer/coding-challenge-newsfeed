@@ -2,6 +2,7 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import Card from './Card'
 import Markdown from './Markdown'
+import { Fellowship } from 'types'
 
 type Props = {
   user: User;
@@ -11,7 +12,7 @@ type User = {
   id: number;
   name: string;
   bio: string;
-  fellowship: "fellows" | "angels" | "writers";
+  fellowship: Fellowship;
   avatar_url: string;
   projects: Project[];
 }
