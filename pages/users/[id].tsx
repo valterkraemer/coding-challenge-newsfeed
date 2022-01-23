@@ -2,6 +2,7 @@ import {useRouter} from 'next/router'
 import {useQuery, gql} from '@apollo/client'
 import Layout from 'components/Layout'
 import UserCard from 'components/UserCard'
+import { Fellowship } from 'types'
 
 const USER_QUERY = gql`
   query user($id: Int!) {
@@ -32,7 +33,7 @@ type User = {
   id: number;
   name: string;
   bio: string;
-  fellowship: "fellows" | "angels" | "writers";
+  fellowship: Fellowship;
   avatar_url: string;
   projects: Project[];
 }

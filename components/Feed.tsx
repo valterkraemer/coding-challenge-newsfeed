@@ -70,7 +70,7 @@ type Props = {
 }
 
 export default function Feed({ fellowship }: Props) {
-  const { data, error, loading, fetchMore, refetch, networkStatus } = useQuery<
+  const { data, error, loading, fetchMore, refetch } = useQuery<
     QueryData,
     QueryVars
   >(NEWSFEED_QUERY, {

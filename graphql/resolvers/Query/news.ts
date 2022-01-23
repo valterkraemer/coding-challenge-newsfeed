@@ -167,7 +167,7 @@ export default async function news(
     })
 
     // Store newest id of users/projects/announcements in cursor
-    after[newestIndex] = newestItem!.id
+    after[newestIndex] = newestItem.id
   }
 
   return {

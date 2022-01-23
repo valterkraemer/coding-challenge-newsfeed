@@ -16,10 +16,13 @@ const labels: Record<Fellowship, string> = {
 
 export default function FellowshipLink({ fellowship }: Props) {
   const { query } = useRouter()
+  const active =
+    query.fellowship === fellowship ||
+    (fellowship === "founders" && !query.fellowship)
 
   return (
     <Link href={{ query: { fellowship } }}>
-      <Anchor active={query.fellowship === fellowship}>
+      <Anchor active={active}>
         {labels[fellowship]}
       </Anchor>
     </Link>

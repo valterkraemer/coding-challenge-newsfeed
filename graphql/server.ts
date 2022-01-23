@@ -45,7 +45,7 @@ const typeDefs = gql`
   type Query {
     project(id: Int!): Project!
     user(id: Int!): User!
-    news(forFellowship: String!, after: [Int!]): NewsPaginated
+    news(forFellowship: String!, after: [Int!]): NewsPaginated!
   }
 `;
 
