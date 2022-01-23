@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 
 import { Fellowship, NewsCursor, Paginated } from 'types'
+import AnnouncementCard from './AnnouncementCard'
 import ProjectCard from './ProjectCard'
 import UserCard from './UserCard'
 
@@ -144,7 +145,10 @@ export default function Feed({ fellowship }: Props) {
                 return <UserCard user={item} key={"user" + item.id} />;
               case "Announcement":
                 return (
-                  <div>Announcement: {item.id}</div>
+                  <AnnouncementCard
+                    key={"announcement" + item.id}
+                    announcement={item}
+                  />
                 );
             }
           }
