@@ -19,9 +19,33 @@ const typeDefs = gql`
     projects: [Project!]!
   }
 
+  type Announcement {
+    id: Int!
+    fellowship: String!
+    title: String!
+    body: String!
+  }
+
+  union News = User | Project | Announcement
+
+  type NewsEdge {
+    node: News!
+  }
+
+  type NewsPageInfo {
+    endCursor: [Int!]
+    hasNextPage: Boolean!
+  }
+
+  type NewsPaginated {
+    edges: [NewsEdge!]
+    pageInfo: NewsPageInfo!
+  }
+
   type Query {
     project(id: Int!): Project!
     user(id: Int!): User!
+    news(forFellowship: String!, after: [Int!]): NewsPaginated
   }
 `;
 
