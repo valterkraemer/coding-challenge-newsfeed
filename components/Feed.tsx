@@ -3,12 +3,10 @@ import { useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 
-import { Fellowship, NewsCursor, Paginated } from 'types'
+import { Fellowship, News, NewsCursor, Paginated } from 'types'
 import AlertError from './AlertError'
-import AnnouncementCard from './AnnouncementCard'
 import Loading from './Loading'
-import ProjectCard from './ProjectCard'
-import UserCard from './UserCard'
+import NewsCard from './NewsCard'
 
 const NEWSFEED_QUERY = gql`
   query News($forFellowship: String!, $cursor: [Int!]) {
@@ -57,36 +55,7 @@ const NEWSFEED_QUERY = gql`
       }
     }
   }
-`;
-
-type Project = {
-  __typename: "Project";
-  id: number;
-  name: string;
-  description: string;
-  icon_url: string;
-  users: Pick<User, "id" | "name" | "avatar_url">[];
-}
-
-type User = {
-  __typename: "User";
-  id: number;
-  name: string;
-  bio: string;
-  fellowship: Fellowship;
-  avatar_url: string;
-  projects: Pick<Project, "id" | "name" | "icon_url">[];
-}
-
-type Announcement = {
-  __typename: "Announcement";
-  id: number;
-  fellowship: Fellowship;
-  title: string;
-  body: string;
-}
-
-type News = User | Project | Announcement
+`
 
 type QueryData = {
   news: Paginated<News, NewsCursor>;
@@ -138,26 +107,10 @@ export default function Feed({ fellowship }: Props) {
     <>
       {error && <AlertError role="alert">{error}</AlertError>}
       {posts &&
-        posts.map((item) => {
-          const Card = () => {
-            switch (item.__typename) {
-              case "Project":
-                return <ProjectCard project={item} />;
-              case "User":
-                return <UserCard user={item} key={"user" + item.id} />;
-              case "Announcement":
-                return (
-                  <AnnouncementCard
-                    key={"announcement" + item.id}
-                    announcement={item}
-                  />
-                );
-            }
-          }
-
+        posts.map((news) => {
           return (
-            <Article key={item.__typename + item.id}>
-              <Card />
+            <Article key={news.__typename + news.id}>
+              <NewsCard news={news} />
             </Article>
           )
         })}
