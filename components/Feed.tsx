@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import { useCallback, useEffect } from 'react'
 import styled from 'styled-components'
+import useInfiniteScroll from 'react-infinite-scroll-hook'
 
 import { Fellowship, NewsCursor, Paginated } from 'types'
 import ProjectCard from './ProjectCard'
@@ -122,6 +123,14 @@ export default function Feed({ fellowship }: Props) {
     })
   }, [cursor])
 
+  const [sentryRef] = useInfiniteScroll({
+    loading,
+    hasNextPage: Boolean(data?.news.pageInfo.hasNextPage),
+    onLoadMore: handleLoadMore,
+    disabled: !!error,
+    rootMargin: "0px 0px 400px 0px",
+  })
+
   return (
     <>
       {error}
@@ -146,7 +155,7 @@ export default function Feed({ fellowship }: Props) {
             </Article>
           )
         })}
-      <button onClick={handleLoadMore}>More</button>
+      <div ref={sentryRef} />
     </>
   )
 }
