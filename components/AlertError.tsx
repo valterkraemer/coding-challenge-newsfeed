@@ -1,0 +1,11 @@
+import styled from 'styled-components'
+
+import Alert from './Alert'
+
+const AlertError = styled(Alert)`
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+`
+
+export default AlertError

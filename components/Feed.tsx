@@ -4,7 +4,9 @@ import styled from 'styled-components'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 
 import { Fellowship, NewsCursor, Paginated } from 'types'
+import AlertError from './AlertError'
 import AnnouncementCard from './AnnouncementCard'
+import Loading from './Loading'
 import ProjectCard from './ProjectCard'
 import UserCard from './UserCard'
 
@@ -134,7 +136,7 @@ export default function Feed({ fellowship }: Props) {
 
   return (
     <>
-      {error}
+      {error && <AlertError role="alert">{error}</AlertError>}
       {posts &&
         posts.map((item) => {
           const Card = () => {
@@ -159,6 +161,7 @@ export default function Feed({ fellowship }: Props) {
             </Article>
           )
         })}
+      <Loading show={loading} />
       <div ref={sentryRef} />
     </>
   )
